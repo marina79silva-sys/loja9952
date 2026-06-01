@@ -58,4 +58,19 @@ class VeiculoModel {
     public function getMarcas(): array {
         return $this->db->query('SELECT * FROM marcas ORDER BY nome')->fetchAll();
     }
+    public function detalhe(int $id): void {
+        if ($id <= 0) {
+            header('Location: /');
+            exit;
+        }
+        $veiculo = $this->model->getById($id);
+        if (!$veiculo) {
+            http_response_code(404);
+            require '../templates/404.php';
+            exit;
+        }
+        $titulo = $veiculo['marca'] . ' ' . $veiculo['modelo'];
+        require '../templates/veiculos/detalhe.php';
+    }
+
 }
