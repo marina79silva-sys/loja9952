@@ -1,0 +1,44 @@
+Creditos das imagens de veiculos
+
+As imagens abaixo foram adicionadas para uso no catalogo local do projeto.
+Verifique sempre a licenca na pagina original antes de uso publico/comercial.
+
+bmw-serie-3-320d.jpg
+Fonte: Wikimedia Commons - File:BMW 3-Series (F30) 320d (2017) (52858553486).jpg
+https://commons.wikimedia.org/wiki/Special:FilePath/BMW%203-Series%20%28F30%29%20320d%20%282017%29%20%2852858553486%29.jpg
+
+bmw-x5-xdrive30d.jpg
+Fonte: Wikimedia Commons - File:BMW X5 Xdrive30d 2019.jpg
+https://commons.wikimedia.org/wiki/Special:FilePath/BMW%20X5%20Xdrive30d%202019.jpg
+
+mercedes-classe-c-220d.jpg
+Fonte: Wikimedia Commons - File:2018 Mercedes-Benz C-Class C220d Avantgarde.jpg
+https://commons.wikimedia.org/wiki/Special:FilePath/2018%20Mercedes-Benz%20C-Class%20C220d%20Avantgarde.jpg
+
+audi-a4-35-tdi.jpg
+Fonte: Wikimedia Commons - File:Audi A4 B9 white (1).jpg
+https://commons.wikimedia.org/wiki/Special:FilePath/Audi%20A4%20B9%20white%20%281%29.jpg
+
+volkswagen-golf-8-gti.jpg
+Fonte: Wikimedia Commons - File:Volkswagen Golf VIII GTI IMG 3451.jpg
+https://commons.wikimedia.org/wiki/Special:FilePath/Volkswagen%20Golf%20VIII%20GTI%20IMG%203451.jpg
+
+toyota-yaris-gr.jpg
+Fonte: Toyota Media CH - YARIS_GR_009.jpg
+https://toyota-media.ch/_storage/asset/187818/storage/master/file/7218517/download/YARIS_GR_009.jpg
+
+renault-megane-e-tech.jpg
+Fonte: Wikimedia Commons - File:Megane etech.jpg
+https://commons.wikimedia.org/wiki/Special:FilePath/Megane%20etech.jpg
+
+peugeot-e-2008.jpg
+Fonte: Flickr / Rutger van der Maar - 2023 Peugeot E-2008
+https://www.flickr.com/photos/rutgervandermaar/53206950697/
+
+ford-mustang-mach-e.jpg
+Fonte: Wikimedia Commons - File:Ford-Mustang-Mach-E-front-right.jpg
+https://commons.wikimedia.org/wiki/Special:FilePath/Ford-Mustang-Mach-E-front-right.jpg
+
+volkswagen-t-roc-15-tsi.jpg
+Fonte: Wikimedia Commons - File:Volkswagen T Roc.jpg
+https://commons.wikimedia.org/wiki/Special:FilePath/Volkswagen%20T%20Roc.jpg

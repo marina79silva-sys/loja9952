@@ -20,12 +20,12 @@
     </style>
 </head>
 <body>
-    <?php require '../templates/header.php'; ?>
+    <?php require dirname(__DIR__).'/header.php'; ?>
 
     <a class="voltar" href="<?= htmlspecialchars(url()) ?>">Voltar ao catalogo</a>
 
     <div class="detalhe">
-        <img src="<?= $veiculo['imagem'] ? '/uploads/'.htmlspecialchars($veiculo['imagem']) : '/img/placeholder.png' ?>"
+        <img src="<?= htmlspecialchars($veiculo['imagem'] ? url('uploads/'.$veiculo['imagem']) : url('img/placeholder.png')) ?>"
              alt="<?= htmlspecialchars($veiculo['marca'].' '.$veiculo['modelo']) ?>">
 
         <section class="info">

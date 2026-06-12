@@ -39,7 +39,10 @@ if ($env !== false) {
     }
 }
  
+use App\Controller\AuthController;
 use App\Controller\CarrinhoController;
+use App\Controller\CheckoutController;
+use App\Controller\ContaController;
 use App\Controller\VeiculoController;
  
 $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
@@ -64,5 +67,12 @@ match("$recurso/$acao") {
     'carrinho/' => (new CarrinhoController())->ver(),
     'carrinho/adicionar' => (new CarrinhoController())->adicionar(),
     'carrinho/remover' => (new CarrinhoController())->remover(),
+    'checkout/' => (new CheckoutController())->ver(),
+    'checkout/confirmar' => (new CheckoutController())->confirmar(),
+    'conta/' => (new ContaController())->ver(),
+    'reserva/anular' => (new ContaController())->anularReserva($id),
+    'login/' => (new AuthController())->login(),
+    'registar/' => (new AuthController())->registar(),
+    'logout/' => (new AuthController())->logout(),
     default => (new VeiculoController())->catalogo(),
 };

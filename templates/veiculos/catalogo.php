@@ -20,10 +20,11 @@
         .detalhe, .adicionar { display:inline-block; background:#1565C0; color:#fff;
                    padding:7px 14px; border:0; border-radius:4px; text-decoration:none; font-size:.9rem; cursor:pointer; }
         .adicionar { background:#2E7D32; }
+        .reservado { background:#dc3545; color:#fff; padding:7px 14px; border-radius:4px; font-size:.9rem; font-weight:bold; }
     </style>
 </head>
 <body>
-    <?php require '../templates/header.php'; ?>
+    <?php require dirname(__DIR__).'/header.php'; ?>
 
     <h1>AutoShop - Catalogo de Veiculos</h1>
 
@@ -63,7 +64,7 @@
         <div class="grelha">
             <?php foreach ($veiculos as $v): ?>
                 <div class="card">
-                    <img src="<?= $v['imagem'] ? '/uploads/'.htmlspecialchars($v['imagem']) : '/img/placeholder.png' ?>"
+                    <img src="<?= htmlspecialchars($v['imagem'] ? url('uploads/'.$v['imagem']) : url('img/placeholder.png')) ?>"
                          alt="<?= htmlspecialchars($v['marca'].' '.$v['modelo']) ?>">
                     <div class="card-body">
                         <h3><?= htmlspecialchars($v['marca'].' '.$v['modelo']) ?></h3>
@@ -71,11 +72,15 @@
                         <div class="preco"><?= number_format($v['preco'], 2, ',', '.') ?> EUR</div>
                         <div class="acoes">
                             <a class="detalhe" href="<?= htmlspecialchars(url('veiculo/detalhe/'.(int) $v['id'])) ?>">Ver detalhe</a>
-                            <form method="POST" action="<?= htmlspecialchars(url('carrinho/adicionar')) ?>">
-                                <input type="hidden" name="veiculo_id" value="<?= (int) $v['id'] ?>">
-                                <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
-                                <button class="adicionar" type="submit">Adicionar a reserva</button>
-                            </form>
+                            <?php if (($v['disponivel'] ?? 1) == 1): ?>
+                                <form method="POST" action="<?= htmlspecialchars(url('carrinho/adicionar')) ?>">
+                                    <input type="hidden" name="veiculo_id" value="<?= (int) $v['id'] ?>">
+                                    <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
+                                    <button class="adicionar" type="submit">Adicionar a reserva</button>
+                                </form>
+                            <?php else: ?>
+                                <span class="reservado">RESERVADO</span>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

@@ -21,7 +21,8 @@
         .remover { background: #b91c1c; color: #fff; border: 0; border-radius: 4px; padding: 8px 12px; cursor: pointer; }
         .resumo { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 22px; padding-top: 18px; border-top: 2px solid #e5e7eb; }
         .total { font-size: 1.05rem; font-weight: bold; }
-        .prosseguir { background: #9ca3af; color: #fff; border: 0; border-radius: 4px; padding: 10px 16px; cursor: not-allowed; opacity: .75; }
+        .prosseguir { background: #2E7D32; color: #fff; border: 0; border-radius: 4px; padding: 10px 16px; cursor: pointer; text-decoration: none; font-weight: bold; display: inline-block; }
+        .prosseguir.vazio { background: #9ca3af; cursor: not-allowed; opacity: .75; }
         @media (max-width: 700px) {
             .topo, .resumo { align-items: flex-start; flex-direction: column; }
             .lista thead { display: none; }
@@ -31,7 +32,7 @@
     </style>
 </head>
 <body>
-    <?php require '../templates/header.php'; ?>
+    <?php require dirname(__DIR__).'/header.php'; ?>
 
     <div class="topo">
         <h1><?= htmlspecialchars($titulo) ?></h1>
@@ -56,7 +57,7 @@
                     <tr>
                         <td>
                             <div class="veiculo">
-                                <img src="<?= $veiculo['imagem'] ? '/uploads/'.htmlspecialchars($veiculo['imagem']) : '/img/placeholder.png' ?>"
+                                <img src="<?= htmlspecialchars($veiculo['imagem'] ? url('uploads/'.$veiculo['imagem']) : url('img/placeholder.png')) ?>"
                                      alt="<?= htmlspecialchars($veiculo['marca'].' '.$veiculo['modelo']) ?>">
                                 <div>
                                     <div class="marca"><?= htmlspecialchars($veiculo['marca']) ?></div>
@@ -80,7 +81,11 @@
 
     <div class="resumo">
         <div class="total">Total de veículos na lista: <?= count($veiculos) ?></div>
-        <button class="prosseguir" type="button" disabled>Prosseguir para reserva</button>
+        <?php if (!empty($veiculos)): ?>
+            <a href="<?= htmlspecialchars(function_exists('url') ? url('checkout') : '/checkout') ?>" class="prosseguir">Continuar para fechar a reserva</a>
+        <?php else: ?>
+            <button class="prosseguir vazio" type="button" disabled>Continuar para fechar a reserva</button>
+        <?php endif; ?>
     </div>
 </body>
 </html>
