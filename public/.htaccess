@@ -1,5 +1,9 @@
 RewriteEngine On
+RewriteBase /loja9952/
 
+# Se é um arquivo real, serve
 RewriteCond %{REQUEST_FILENAME} !-f
+# Se é um diretório real, serve
 RewriteCond %{REQUEST_FILENAME} !-d
+# Tudo o resto vai para index.php
 RewriteRule ^ index.php [QSA,L]

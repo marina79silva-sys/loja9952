@@ -1,5 +1,6 @@
 <?php
 require_once dirname(__DIR__).'/vendor/autoload.php';
+require_once dirname(__DIR__).'/src/Helper.php';
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -23,15 +24,6 @@ function csrf_validar(): void {
     }
 }
 
-function url(string $path = ''): string {
-    $base = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
-    if ($base === '/' || $base === '.') {
-        $base = '';
-    }
-
-    return $base.'/'.ltrim($path, '/');
-}
-
 $env = parse_ini_file(dirname(__DIR__).'/.env');
 if ($env !== false) {
     foreach ($env as $k => $v) {
@@ -39,6 +31,7 @@ if ($env !== false) {
     }
 }
  
+use App\Controller\AdminController;
 use App\Controller\AuthController;
 use App\Controller\CarrinhoController;
 use App\Controller\CheckoutController;
@@ -47,6 +40,9 @@ use App\Controller\VeiculoController;
  
 $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 $base = trim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
+if (str_ends_with($base, '/public')) {
+    $base = substr($base, 0, -7);
+}
 if ($base !== '' && str_starts_with($uri, $base.'/')) {
     $uri = substr($uri, strlen($base) + 1);
 }
@@ -63,6 +59,9 @@ $id      = (int)($partes[2] ?? 0);
  
 match("$recurso/$acao") {
     '/' => (new VeiculoController())->catalogo(),
+    'admin/' => (new AdminController())->dashboard(),
+    'admin/dashboard' => (new AdminController())->dashboard(),
+    'admin/login' => (new AuthController())->adminLogin(),
     'veiculo/detalhe' => (new VeiculoController())->detalhe($id),
     'carrinho/' => (new CarrinhoController())->ver(),
     'carrinho/adicionar' => (new CarrinhoController())->adicionar(),
@@ -74,5 +73,11 @@ match("$recurso/$acao") {
     'login/' => (new AuthController())->login(),
     'registar/' => (new AuthController())->registar(),
     'logout/' => (new AuthController())->logout(),
+    'admin/veiculos' => (new AdminController())->veiculosLista(),
+    'admin/veiculos/criar' => (new AdminController())->veiculoCriar(),
+    'admin/veiculos/editar' => (new AdminController())->veiculoEditar($id),
+    'admin/veiculos/apagar' => (new AdminController())->veiculoApagar($id),
+    'admin/reservas' => (new AdminController())->reservasLista(),
+    'admin/reservas/estado' => (new AdminController())->reservaEstado(),
     default => (new VeiculoController())->catalogo(),
 };

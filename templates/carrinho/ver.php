@@ -36,7 +36,7 @@
 
     <div class="topo">
         <h1><?= htmlspecialchars($titulo) ?></h1>
-        <a href="/">Voltar ao catálogo</a>
+        <a href="<?= url() ?>">Voltar ao catálogo</a>
     </div>
 
     <?php if (empty($veiculos)): ?>

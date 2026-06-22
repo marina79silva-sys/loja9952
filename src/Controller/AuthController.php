@@ -2,6 +2,7 @@
 namespace App\Controller;
  
 use App\Model\ClienteModel;
+use function App\url;
  
 class AuthController {
     private ClienteModel $model;
@@ -35,7 +36,7 @@ class AuthController {
                     ':password' => password_hash($pass, PASSWORD_BCRYPT),
                 ]);
                 $_SESSION['msg_ok'] = 'Conta criada com sucesso! Faz login.';
-                $destino = function_exists('url') ? url('login') : '/login';
+                $destino = url('login');
                 header('Location: '.$destino);
                 exit;
             }
@@ -59,7 +60,7 @@ class AuthController {
                 $_SESSION['cliente_email']= $cliente['email'];
 
                 // Redireciona para a página onde o utilizador estava a tentar ir, ou para a home
-                $destino = $_SESSION['url_pretendida'] ?? (function_exists('url') ? url() : '/');
+                $destino = $_SESSION['url_pretendida'] ?? url();
                 unset($_SESSION['url_pretendida']);
 
                 header('Location: '.$destino);
@@ -74,8 +75,42 @@ class AuthController {
     public function logout(): void {
         session_destroy();
         session_unset();
-        $destino = function_exists('url') ? url() : '/';
+        $destino = url();
         header('Location: '.$destino);
         exit;
+    }
+
+    public function adminLogin(): void {
+        if ($_SESSION['admin_logado'] ?? false) {
+            $destino = url('admin/dashboard');
+            header('Location: '.$destino);
+            exit;
+        }
+
+        $erro = '';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            csrf_validar();
+            $email = trim($_POST['email'] ?? '');
+            $pass  = $_POST['password'] ?? '';
+    
+            $pdo  = \App\Database::getConnection();
+            $stmt = $pdo->prepare('SELECT * FROM admins WHERE email = :email');
+            $stmt->execute([':email' => $email]);
+            $admin = $stmt->fetch();
+    
+            if ($admin && password_verify($pass, $admin['password'])) {
+                session_regenerate_id(true);
+                $_SESSION['admin_logado'] = true;
+                $_SESSION['admin_id']     = $admin['id'];
+                $_SESSION['admin_nome']   = $admin['nome'];
+                $destino = function_exists('url') ? url('admin/dashboard') : '/admin/dashboard';
+                header('Location: '.$destino);
+                exit;
+            }
+            $erro = 'Credenciais inválidas.';
+        }
+
+        $titulo = 'Administração — Login';
+        require dirname(__DIR__, 2).'/templates/admin/login.php';
     }
 }

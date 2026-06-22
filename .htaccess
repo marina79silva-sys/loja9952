@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteBase /loja9952/
+
+# Se a requisição é um arquivo real, serve-o
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Se a requisição é um diretório real, serve-o
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Reescrever tudo para public/index.php (sem mudar a URL no navegador)
+RewriteRule ^(.*)$ public/index.php [QSA,L]
